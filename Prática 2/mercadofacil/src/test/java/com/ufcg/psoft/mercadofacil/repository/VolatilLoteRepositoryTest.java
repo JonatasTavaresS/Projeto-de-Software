@@ -78,6 +78,14 @@ class VolatilLoteRepositoryTest {
     }
 
     @Test
+    @DisplayName("Encontrar todos os Lotes")
+    void encontrarTodosLotes() {
+        assertEquals(0, driver.findAll().size());
+        driver.save(lote);
+        assertEquals(1, driver.findAll().size());
+    }
+
+    @Test
     @DisplayName("Encontrar Lote existente no repositório de dados")
     void encontrarLoteExistente() {
         driver.save(lote);
@@ -95,10 +103,10 @@ class VolatilLoteRepositoryTest {
     @DisplayName("Atualizar primeiro Lote no repositório de dados")
     void atualizarUnicoLote() {
         driver.save(lote);
-        lote.setId(4L);
+        lote.setNumeroDeItens(75);
 
-        assertEquals(1, driver.findAll().size());
         assertEquals(lote, driver.update(lote));
+        assertEquals(75, driver.find(lote.getId()).getNumeroDeItens());
         assertEquals(1, driver.findAll().size());
     }
 
@@ -119,10 +127,10 @@ class VolatilLoteRepositoryTest {
                 .produto(produtoExtra)
                 .build();
         driver.save(loteExtra);
-        loteExtra.setId(4L);
+        loteExtra.setNumeroDeItens(113);
 
-        assertEquals(2, driver.findAll().size());
         assertEquals(loteExtra, driver.update(loteExtra));
+        assertEquals(113, driver.find(loteExtra.getId()).getNumeroDeItens());
         assertEquals(2, driver.findAll().size());
     }
 
