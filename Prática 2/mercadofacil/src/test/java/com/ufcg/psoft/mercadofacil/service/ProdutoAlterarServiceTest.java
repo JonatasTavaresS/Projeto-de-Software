@@ -63,7 +63,6 @@ public class ProdutoAlterarServiceTest {
     @DisplayName("Quando o preço é menor ou igual a zero")
     void precoMenorIgualAZero() {
         produto.setPreco(0.0);
-        Produto resultado = driver.alterar(produto);
         RuntimeException thrown = assertThrows(
                 RuntimeException.class,
                 () -> driver.alterar(produto)
