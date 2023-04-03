@@ -1,6 +1,5 @@
 package com.ufcg.psoft.mercadofacil.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufcg.psoft.mercadofacil.model.Produto;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,12 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("Testes dp Controladorm de Produtos")
-public class ProdutoV1Controller {
+public class ProdutoV1ControllerTests {
 
     @Autowired
     MockMvc mockMvc;
 
-    ObjectMapper objectMapper;
+    ObjectMapper objectMapper = new ObjectMapper();
 
     Produto produto;
 
@@ -42,9 +41,9 @@ public class ProdutoV1Controller {
 
     @Test
     @DisplayName("Quando altero produto com nome válido")
-    void alterarProdutoNomeValido() throws JsonProcessingException {
+    void alterarProdutoNomeValido() throws Exception {
         produto.setNome("Chiclete");
-        String produtoModificadoJSONString = inmockMvc.perform(
+        String produtoModificadoJSONString = mockMvc.perform(
                         put("/v1/produtos/" + 10)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(produto)))
